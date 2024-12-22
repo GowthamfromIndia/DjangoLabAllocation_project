@@ -1,0 +1,201 @@
+{% if user.is_superuser %}
+
+    <style>
+        body{
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            padding: 15px;
+            max-width: 1200px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            overflow: hidden;
+        }
+
+        .container a {
+            font-size: x-large;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 250px;
+            height: 150px;
+            margin: 10px;
+            text-decoration: none;
+            background-color: #ffffff;
+            padding: 15px;
+            border: 2px solid #000000;
+            border-radius: 15px 50px; 
+            color: #000000;
+            transition: all 0.3s ease;
+            position: relative; 
+        }
+
+        .container a:hover {
+            background-color: #f1e1e1;
+        }
+
+        .container a img {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px; 
+            height: 60px; 
+        }
+
+        .container .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container .content h2 {
+            margin-top: 10px;
+            color: #307530;
+        }
+        .container a .additional-img {
+            position: absolute;
+            bottom: 10px;
+            left: 60px;
+            width: 90px;
+            height: 90px;
+        }
+    </style>
+
+
+<div class="container">
+    <!--<div class="content">
+        <a href="{% url 'Authentication:register' %}" >
+            <img src="https://cdn-icons-png.freepik.com/256/12345/12345046.png?ga=GA1.1.380777227.1716371903&semt=ais_hybrid" alt="Plus Icon">
+            <img class="additional-img" src="https://cdn-icons-png.freepik.com/256/5352/5352247.png?ga=GA1.1.380777227.1716371903&semt=ais_hybrid" alt="Additional Image">
+        </a>
+        <h2>Add Student</h2>
+    </div>-->
+    <div class="content">
+        <a href="{% url 'Laballocation:message' %}">
+            <img src="https://cdn-icons-png.freepik.com/256/12345/12345046.png?ga=GA1.1.380777227.1716371903&semt=ais_hybrid" alt="Plus Icon">
+            <img class="additional-img" src="https://cdn-icons-png.freepik.com/256/1041/1041916.png?ga=GA1.1.380777227.1716371903&semt=ais_hybrid" alt="Additional Image"> 
+        </a>
+        <h2>Add Message</h2>
+    </div>
+    <div class="content">
+        <a href="{% url 'labpro:labs' %}">
+            <img src="https://cdn-icons-png.freepik.com/256/12345/12345046.png?ga=GA1.1.380777227.1716371903&semt=ais_hybrid" alt="Plus Icon">
+            <img class="additional-img" src="https://cdn-icons-png.freepik.com/256/3483/3483835.png?ga=GA1.1.380777227.1716371903&semt=ais_hybrid" alt="Additional Image">
+        </a>
+        <h2>Labs</h2>
+    </div>
+    <div class="content">
+        <a href="{% url 'labpro:labs_view' %}">
+            <img src="https://cdn-icons-png.freepik.com/256/12345/12345046.png?ga=GA1.1.380777227.1716371903&semt=ais_hybrid" alt="Plus Icon">
+            <img class="additional-img" src="https://cdn-icons-png.freepik.com/256/6674/6674926.png?ga=GA1.1.380777227.1716371903&semt=ais_hybrid" alt="Additional Image">
+        </a>
+        <h2>Allocate Labs</h2>
+    </div>
+    <div class="content">
+        <a href="{% url 'labpro:Assignassignment' %}">
+            <img src="https://cdn-icons-png.freepik.com/256/12345/12345046.png?ga=GA1.1.380777227.1716371903&semt=ais_hybrid" alt="Plus Icon">
+            <img class="additional-img" src="https://cdn-icons-png.freepik.com/256/11995/11995253.png?ga=GA1.1.380777227.1716371903&semt=ais_hybrid" alt="Additional Image">
+        </a>
+        <h2>Assign Assignment</h2>
+    </div>
+    <div class="content">
+        <a href="#">
+            <img src="https://cdn-icons-png.freepik.com/256/12345/12345046.png?ga=GA1.1.380777227.1716371903&semt=ais_hybrid" alt="Plus Icon">
+            <img class="additional-img" src="https://cdn-icons-png.freepik.com/256/8017/8017848.png?ga=GA1.1.380777227.1716371903&semt=ais_hybrid" alt="Additional Image">
+        </a>
+        <h2>Teaching Content</h2>
+    </div>
+    <div class="content">
+        <a href="{% url 'Laballocation:your_department' %}">
+            <img src="https://cdn-icons-png.freepik.com/256/12345/12345046.png?ga=GA1.1.380777227.1716371903&semt=ais_hybrid" alt="Plus Icon">
+            <img class="additional-img" src="https://cdn-icons-png.freepik.com/256/3183/3183864.png?ga=GA1.1.380777227.1716371903&semt=ais_hybrid" alt="Additional Image">
+        </a>
+        <h2>Your Department</h2>
+    </div>
+    <div class="content">
+        <a href="{% url 'Laballocation:Notifications1' %}">
+            <img src="https://cdn-icons-png.freepik.com/256/12345/12345046.png?ga=GA1.1.380777227.1716371903&semt=ais_hybrid" alt="Plus Icon">
+            <img class="additional-img" src="https://cdn-icons-png.freepik.com/256/3177/3177336.png?ga=GA1.1.380777227.1716371903&semt=ais_hybrid" alt="Additional Image">
+        </a>
+        <h2>Notifications</h2>
+    </div>
+    <div class="content">
+        <a href="{% url 'labpro:Practicals' %}" >
+            <img src="https://cdn-icons-png.freepik.com/256/12345/12345046.png?ga=GA1.1.380777227.1716371903&semt=ais_hybrid" alt="Plus Icon">
+            <img class="additional-img" src="https://cdn-icons-png.freepik.com/256/5352/5352247.png?ga=GA1.1.380777227.1716371903&semt=ais_hybrid" alt="Additional Image">
+        </a>
+        <h2>Add Practical Timetable</h2>
+    </div>
+</div>
+
+
+
+
+{% else %}
+
+
+
+
+<nav class="nav9">
+    <a href="{% url 'Laballocation:message' %}" >Message</a>
+    <a href="{% url 'labpro:Practicals' %}">Practical</a>
+    <a href="{% url 'labpro:labs_view' %}">Allocated Labs</a>
+    <a href="{% url 'labpro:Assignassignment' %}" >Lab Assignment</a>
+    <a href="{% url 'Laballocation:your_department' %}" >Department</a>
+    <a href="{% url 'Laballocation:Notifications1' %}">Notifications</a>
+
+</nav>
+
+<style>
+
+.nav9 {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 0;
+        margin: 0;
+        background-color: #ffffff;
+    }
+
+    .nav9 a {
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+        font-size: large;
+        padding: 18px;
+    }
+
+    .nav9 a:hover {
+        background-color: lightgrey;
+        border-radius: 20px;
+    }
+
+    .nav9 a.active {
+        background-color:lightgray;
+        border-radius: 38px;
+    }
+
+
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        const activeLink = localStorage.getItem('activeLink');
+        if (activeLink) {
+            $('.nav9 a[href="' + activeLink + '"]').addClass('active');
+        }
+
+        $('.nav9 a').click(function () {
+            $('.nav9 a').removeClass('active');
+            $(this).addClass('active');
+            localStorage.setItem('activeLink', $(this).attr('href'));
+        });
+    });
+</script>
+
+
+
+{% endif %}

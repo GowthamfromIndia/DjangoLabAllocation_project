@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Allocation</title>
+
+<style>
+
+  body{
+    font-family: 'Roboto', sans-serif;
+  }
+ 
+  .project-details {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .project-details h3 {
+    font-size: 24px;
+    margin-top: 20px;
+    color: #333;
+  }
+
+  .project-details p {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #333;
+    max-width: 800px; 
+    margin: 0 auto; 
+  }
+
+  .project-details img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+  }
+
+  .container{
+    align-items: center;
+    margin-left: 3%;
+  }
+
+  #description{
+    font-size: large;
+  }
+
+
+</style>
+
+</head>
+<body>
+<div id="main">
+
+{% include 'navbar2.html' %}
+{% if user.is_superuser %}
+  <div class="container">
+    <h2>Welcome @ {{ profile.first_name }} admin! You have access for Allocating labs </h2>
+    <div>
+        <p id="description">Lab allocation is the process of assigning laboratory resources such as equipment,
+        space, and time slots to students, researchers, or academic staff for conducting experiments,
+        research, or practical sessions. It involves planning, scheduling, and managing the usage of
+        laboratory facilities to ensure optimal utilization and equitable access for all users.
+        </p>
+    </div>
+</div>
+{% endif %}
+
+  {% include 'navbar.html' %}
+
+
+  {% if not user.is_superuser %}
+  <div class="project-details">
+      <h3>Efficient Resource Utilization</h3>
+      <p>
+          Our Automatic Lab Allocation project aims to streamline the process of assigning laboratory resources to students and faculty efficiently. By leveraging cutting-edge algorithms and automation, we ensure optimal resource utilization and fair allocation across all users.
+      </p>
+      <img src="https://img.freepik.com/premium-photo/green-room-with-large-window-desk-with-bunch-computers-it_579873-9000.jpg" alt="Lab Allocation">
+      <h3>Dynamic Allocation Algorithm</h3>
+      <p>
+          Our system considers various parameters such as student schedules, lab availability, equipment requirements, and user preferences to allocate labs dynamically. With an intuitive interface and robust backend, we provide a seamless experience for all stakeholders involved.
+      </p>
+      <img src="https://img.freepik.com/premium-photo/human-genetics-future-science-labgenerative-ai_1017677-637.jpg?w=740" alt="Lab Equipment">
+      <h3>Revolutionizing Lab Management</h3>
+      <p>
+          <img src="https://img.freepik.com/free-vector/laboratory-infographic-set_1284-16824.jpg?t=st=1715184631~exp=1715188231~hmac=c6180e9ecf8ddffda66a21b0bd83ef19bb8a49c02ba51e5bdb7a786752f22024&w=740">
+          Join us in revolutionizing the way labs are allocated, making the process hassle-free and efficient for everyone.
+      </p>
+  </div>
+  {% endif %}
+  
+
+
+
+</div>
+</body>
+</html>

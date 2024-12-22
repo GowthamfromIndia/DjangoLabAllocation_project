@@ -1,0 +1,75 @@
+<div id="main">
+    
+    {% include 'navbar2.html' %}
+    {% if not user.is_superuser %}
+    {% include 'navbar.html' %}
+    {% endif %}
+    
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: Arial, sans-serif;
+            }
+    
+            .container {
+                max-width: 800px;
+                margin: 20px auto;
+                padding: 20px;
+                background-color: #ffffff;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+    
+            .container h1 {
+                text-align: center;
+                margin-bottom: 20px;
+                
+            }
+    
+            .student-container {
+                border: 1px solid #e9ecef;
+                margin-bottom: 20px;
+                padding: 20px;
+                border-radius: 8px;
+                background-color: #ffffff;
+                transition: transform 0.3s ease;
+            }
+    
+            .student-container:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            }
+    
+            .student-name {
+                font-size: 24px;
+                color:#001242;
+                margin-bottom: 10px;
+            }
+    
+            .student-details {
+                margin-bottom: 10px;
+                color:black;
+            }
+    
+            .student-details strong {
+                color: #001242;
+            }
+        </style>
+ 
+
+        <div class="container">
+            <h1>Students in {{ department }}</h1>
+            {% for student in students %}
+            <div class="student-container">
+                <div class="student-name">{{ student.first_name }} {{ student.last_name }}</div>
+                <div class="student-details">
+                    <p><strong>Email ID:</strong> {{ student.email }}</p>
+                    <p><strong>DOB:</strong> {{ student.date_of_birth }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    
+
+</div>

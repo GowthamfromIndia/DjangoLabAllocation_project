@@ -1,0 +1,126 @@
+<div id="main">
+    
+    {% include 'navbar2.html' %}
+    {% if not user.is_superuser %}
+    {% include 'navbar.html' %}
+    {% endif %}
+    
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Notifications</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #ffffff;
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                max-width: 800px;
+                margin: 20px auto;
+                padding: 20px;
+                background-color: #ffffff;
+                border-radius: 8px;
+                
+            }    
+            .notification {
+                border-bottom: 1px solid #ffffff;
+                padding: 10px 0;
+                display: flex;
+                color: black;
+                justify-content: space-between;
+                align-items: center;
+                border-color: black;
+                transition: background-color 0.3s ease;
+            }
+            .notification:hover {
+                background-color: #dad4d4;
+                border-radius: 18px;
+            }
+            .notification:last-child {
+                border-bottom: none;
+            }
+            .notification p {
+                margin: 0;
+                flex: 1;
+                text-align: center;
+                font-size: large;
+                padding: 10px;
+                
+            }
+            .delete-btn {
+                background-color: #dc3545;
+                color: #ffffff;
+                border: none;
+                padding: 10px 20px;
+                cursor: pointer;
+                border-radius: 4px;
+                font-size: 16px;
+            }
+            .add-form {
+                margin-top: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .add-form textarea {
+                resize: vertical;
+                margin-bottom: 10px;
+                padding: 10px;
+                font-size: 16px;
+                border: 1px solid #00264d;
+                border-radius: 14px;
+                width: 100%;
+                max-width: 600px;
+                height: 100px;
+            }
+            .add-form button {
+                background-color: #28a745;
+                color: #ffffff;
+                border: none;
+                padding: 10px 20px;
+                cursor: pointer;
+                border-radius: 4px;
+                margin-left: 35%;
+                font-size: 16px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Notifications</h1>
+            {% for notification in notifications %}
+            <div class="notification">
+                <p>{{ notification.content }}</p>
+                {% if user.is_superuser %}
+                <form method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="notification_id" value="{{ notification.id }}">
+                    <button type="submit" name="delete_notification" class="delete-btn">Delete</button>
+                </form>
+                {% endif %}
+            </div>
+            {% endfor %}
+    
+            {% if user.is_superuser %}
+            <div class="add-form">
+                <h2>Add Notification</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" name="add_notification">Add Notification</button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    </body>
+    </html>
+    
+    
+    
+    
+    
+    </div>

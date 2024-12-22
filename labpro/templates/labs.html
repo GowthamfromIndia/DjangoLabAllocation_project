@@ -1,0 +1,135 @@
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+
+        nav {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover {
+            color: #f0f0f0;
+        }
+
+        #labs {
+            padding: 20px 0;
+        }
+
+        .lab {
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .lab img {
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .lab-info {
+            padding: 20px;
+        }
+
+        .lab-info h2 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .lab-info p {
+            line-height: 1.6;
+            color: #666;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
+
+    <div id="main">
+        {% include 'navbar2.html' %}
+        {% if not user.is_superuser %}
+        {% include 'navbar.html' %}
+        {% endif %}
+
+
+        <section id="labs">
+            <div class="container">
+                <div id="physics" class="lab">
+                    <img src="https://hello.iitk.ac.in/sites/default/files/inline-images/IMG_7606.jpg" alt="Physics Lab">
+                    <div class="lab-info">
+                        <h2>Physics Lab</h2>
+                        <p>The Physics Lab is equipped with modern equipment to support research and learning in various branches of physics.</p>
+                    </div>
+                </div>
+                <div id="chemistry" class="lab">
+                    <img src="https://t4.ftcdn.net/jpg/05/52/90/05/360_F_552900530_D4WF1c3zGsvIGfLgKaRBrEmbvPlk6O6E.jpg" alt="Chemistry Lab">
+                    <div class="lab-info">
+                        <h2>Chemistry Lab</h2>
+                        <p>Our Chemistry Lab offers a wide range of chemical experiments and research opportunities in organic, inorganic, and physical chemistry.</p>
+                    </div>
+                </div>
+                <div id="mathematics" class="lab">
+                    <img src="https://5.imimg.com/data5/RB/VH/NV/SELLER-59512720/mathematics-lab-furniture-.jpg" alt="Mathematics Lab">
+                    <div class="lab-info">
+                        <h2>Mathematics Lab</h2>
+                        <p>The Mathematics Lab provides a collaborative environment for students and researchers to explore mathematical theories and applications.</p>
+                    </div>
+                </div>
+                <div id="computer-science" class="lab">
+                    <img src="https://cdn.pixabay.com/photo/2015/06/24/15/45/code-820275_960_720.jpg" alt="Computer Science Lab">
+                    <div class="lab-info">
+                        <h2>Computer Science Lab</h2>
+                        <p>Our Computer Science Lab is equipped with the latest technology to support learning and research in software development, AI, and more.</p>
+                    </div>
+                </div>
+                <div id="engineering" class="lab">
+                    <img src="https://c8.alamy.com/comp/2JMGYH1/modern-technology-diy-product-engineering-lab-2JMGYH1.jpg" alt="Engineering Clinics">
+                    <div class="lab-info">
+                        <h2>Engineering Clinics</h2>
+                        <p>The Engineering Clinics offer hands-on experience in various engineering disciplines, fostering innovation and practical skills.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>

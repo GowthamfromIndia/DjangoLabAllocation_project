@@ -1,0 +1,146 @@
+    <style>
+
+
+        body 
+        {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+        h2 {
+            color: #333333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        form button {
+            align-self: center;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .table th, .table td {
+            padding: 12px;
+            border: 1px solid #dddddd;
+            text-align: center;
+        }
+        .table th {
+            background-color: #f2f2f2;
+            color: #333333;
+        }
+        .table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .alert {
+            color: #d8000c;
+            background-color: #ffbaba;
+            border: 1px solid #d8000c;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-primary {
+            background-color: #007bff;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+
+
+<div id="main">
+    {% include 'navbar2.html' %}
+    {% if not user.is_superuser %}
+    {% include 'navbar.html' %}
+    {% endif %}
+
+    <div class="container">
+        {% if user.is_superuser %}
+            <h2>Add a New Practical Timetable</h2>
+            <form method="post" action="{% url 'labpro:Practicals' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                {% if form.errors %}
+                    <div class="alert" role="alert">
+                        {{ form.non_field_errors }}
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <button type="submit" class="btn btn-primary">Add Timetable</button>
+            </form>
+        {% endif %}
+
+        <h2>Practical Timetables</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time Slot</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Practical</th>
+                    <th>Labcapacity</th>
+                    {% if user.is_superuser %}
+                        <th>Actions</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for timetable in timetables %}
+                    <tr>
+                        <td>{{ timetable.date }}</td>
+                        <td>{{ timetable.time_slot }}</td>
+                        <td>{{ timetable.start_time }}</td>
+                        <td>{{ timetable.end_time }}</td>
+                        <td>{{ timetable.practical }}</td>
+                        <td>{{ timetable.capacity }}</td>
+                        {% if user.is_superuser %}
+                            <td>
+                                <form method="post" action="{% url 'labpro:delete_practical' timetable.id %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+

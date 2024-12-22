@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Staff-Login</title>
+  <style>
+    body {
+      background-color: lightgray; 
+      color: #000000;
+    }
+    
+    .title {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #000000; 
+    }
+    
+    .subtitle {
+      text-align: center;
+      color: darkviolet;
+      margin-bottom: 30px;
+    }
+    
+    .form-wrapper {
+      margin: 0 auto;
+      width: 300px;
+      font-size: larger;
+    }
+    
+    form {
+      background-color: #fff; 
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px; 
+      margin-bottom: 20px;
+      border: 1px solid #ced4da; 
+      border-radius: 5px;
+      font-size: 16px; 
+    }
+    
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #387cc5; 
+      color: #fff; 
+      border: none;
+      font-size: 18px; 
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: #0056b3; 
+    }
+    
+    .signup-link {
+      text-decoration: none;
+      color: #000000; 
+      text-align: center;
+      display: block;
+      margin-top: 20px; 
+      font-size: 14px; 
+    }
+  </style>
+</head>
+<body>
+
+  {% if messages %}
+    {% for message in messages %}
+     <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong> You Does't have permission to access the Admin 
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="POST">
+    <h1 class="title">Lab Allocation🖥️</h1>
+    <h2 class="subtitle">Staff-Login</h2>
+    {% csrf_token %}
+    <div class="form-wrapper">
+        {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+  </form>
+  
+</body>
+</html>

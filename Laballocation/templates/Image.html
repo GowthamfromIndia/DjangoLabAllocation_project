@@ -1,0 +1,7 @@
+
+
+{% if profile.avatar %}
+            <img class="img" src="{{ profile.avatar.url }}" alt="Profile photo">
+{% else %}
+            <p>No profile photo available</p>
+{% endif %} 

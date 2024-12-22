@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institution Page</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #000000;
+        }
+        
+        hr {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 20px 0;
+        }
+        
+        .input-field {
+            width: calc(100% - 22px);
+            height: 40px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 20px;
+            text-align: center;
+            margin-right: 10px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .input-field:focus {
+            border-color: #000000;
+        }
+        
+        .submit-button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #3483d8;
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+        
+        .error-message {
+            text-align: center;
+            color: #ff0000;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Lab Allocation</h1>
+        <hr>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" class="input-field" placeholder="Enter Name Of The Institution" name="Institutionname" required>
+            <button type="submit" class="submit-button">Submit</button>
+        </form>
+
+        {% if error_message %}
+        <h3 class="error-message">{{ error_message }}</h3>
+        {% endif %}
+    </div>
+</body>
+</html>

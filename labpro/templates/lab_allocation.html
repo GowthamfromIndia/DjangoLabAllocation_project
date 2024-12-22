@@ -1,0 +1,229 @@
+<div id="main">
+    
+    {% include 'navbar2.html' %}
+    {% if not user.is_superuser %}
+    {% include 'navbar.html' %}
+    {% endif %}
+
+    <style>
+
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        .list-group-item {
+            border-bottom: 1px solid #dee2e6;
+            padding: 15px 0;
+        }
+
+        .list-group-item:last-child {
+            border-bottom: none;
+        }
+
+        .btn {
+            cursor: pointer;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #c82333;
+        }
+
+        .alert {
+            border-radius: 8px;
+            background-color: #ffc107;
+            color: #333;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        .timetable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .timetable th, .timetable td {
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .timetable th {
+            background-color: #f1f1f1;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #e3f2fd;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .navbar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .nav-item {
+            margin-right: 15px;
+        }
+
+        .nav-link {
+            color: #007bff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        .timetable-section {
+            display: none;
+        }
+
+        .timetable-section.active {
+            display: block;
+        }
+        .h3
+        {
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           font-size: 20px;
+        }
+
+
+    </style>
+
+
+<div class="container">
+    <nav class="navbar">
+        <h3 class="navbar-brand" href="#">Day-Wise Timetable</h3>
+        <ul class="navbar-nav">
+            {% for day_schedule in timetable %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="showDay('{{ day_schedule.day }}')">{{ day_schedule.day }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+    {% if user.is_superuser %}
+        <h2 class="mb-4">Add a New Lab</h2>
+        <form method="post" action="{% url 'labpro:labs_view' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form.non_field_errors }}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary">Add Lab</button>
+        </form>
+    {% endif %}
+
+    {% for day_schedule in timetable %}
+        <div id="{{ day_schedule.day }}" class="timetable-section">
+            <h3 class="h3">{{ day_schedule.day }}</h3>
+            <table class="timetable">
+                <thead>
+                    <tr>
+                        <th>Period</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Lab Name</th>
+                        <th>Capacity</th>
+                        {% if user.is_superuser %}
+                            <th>Actions</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for period in day_schedule.periods %}
+                        <tr>
+                            <td>{{ period.period }}</td>
+                            <td>{{ period.start_time }}</td>
+                            <td>{{ period.end_time }}</td>
+                            <td>{{ period.lab_name }}</td>
+                            <td>{{ period.capacity }}</td>
+                            {% if user.is_superuser and period.lab_name != 'Not Allocated' %}
+                                <td>
+                                    <form method="post" action="{% url 'labpro:edit_lab' period.lab_id %}" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+                                    </form>
+                                    <form method="post" action="{% url 'labpro:labs_view' %}" style="display:inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="delete_lab" value="{{ period.lab_id }}">
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+    function showDay(day) {
+        var sections = document.querySelectorAll('.timetable-section');
+        sections.forEach(function(section) {
+            section.classList.remove('active');
+        });
+        document.getElementById(day).classList.add('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var firstDay = document.querySelector('.timetable-section');
+        if (firstDay) {
+            firstDay.classList.add('active');
+        }
+    });
+</script>
+
+
+
+
+</div>

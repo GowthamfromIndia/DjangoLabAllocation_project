@@ -1,0 +1,123 @@
+<div id="main">
+    
+    {% include 'navbar2.html' %}
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 15px;
+            background-color: #ffffff;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .MCA1 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: #333333;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .MCA2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #555555;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #666666;
+            text-align: center;
+        }
+
+        .img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: block;
+            border: 5px solid #ffffff;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #5a67d8;
+            border-radius: 25px;
+            font-size: 18px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #434190;
+            transform: scale(1.05);
+        }
+
+        .messages {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .message {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #f0f4f8;
+            border-left: 4px solid #5a67d8;
+            color: #333;
+            border-radius: 5px;
+        }
+
+        .message.success {
+            border-left-color: #48bb78;
+        }
+
+        .message.error {
+            border-left-color: #e53e3e;
+        }
+    </style>
+
+    <div class="container">
+        <h1 class="MCA1">User Profile</h1>
+        <h2 class="MCA2">Institution: {{ institution.Iname }}</h2>
+        <h2 class="MCA2">Name: {{ profile.first_name }} {{ profile.last_name }}</h2>
+    {% if profile.avatar %}
+        <img class="img" src="{{ profile.avatar.url }}" alt="Profile photo">
+    {% else %}
+        <p>No profile photo available</p>
+    {% endif %} 
+        <p>Bio: {{ profile.bio }}</p>
+        <p>Date of Birth: {{ profile.date_of_birth }}</p>
+        <p>Email: {{ profile.email }}</p>
+
+        <div class="messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div style="text-align: center;">
+            <a class="btn" href="{% url 'Laballocation:edit_profile' %}">Update Profile</a>
+            <a class="btn" href="{% url 'Laballocation:change_password' %}">Change Password</a>
+        </div>
+    </div>
+</div>
